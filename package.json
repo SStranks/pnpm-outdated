@@ -1,12 +1,46 @@
 {
   "name": "pnpm-outdated",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "description": "github action - runs `pnpm outdated` on repository and prints output to github summary",
   "author": "Simon Stranks <sstranks0@gmail.com> <https://github.com/SStranks>",
-  "license": "ISC"
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/SStranks/pnpm-outdated"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "outdated",
+    "version",
+    "semver"
+  ],
+  "license": "ISC",
+  "type": "module",
+  "packageManager": "pnpm@9.0.6",
+  "engines": {
+    "node": ">= 20"
+  },
+  "prettier": "@packages/prettier-config",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "node dist/main.js",
+    "build": "tsc ",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@packages/commitlint-config": "workspace:*",
+    "@packages/prettier-config": "workspace:*",
+    "@actions/core": "^1.10.1",
+    "semver": "^7.6.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@types/node": "^20.12.12",
+    "@types/semver": "^7.5.8",
+    "eslint": "8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.4",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  }
 }
