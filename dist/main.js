@@ -1,4 +1,4 @@
-import { setFailed, setOutput } from '@actions/core';
+import { getInput, setFailed, setOutput } from '@actions/core';
 import { spawnSync } from 'node:child_process';
 import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -15,9 +15,10 @@ if (process.env.NODE_ENV === 'development') {
     process.env.GITHUB_STEP_SUMMARY = SUMMARY_FILE;
 }
 const main = async () => {
+    const actionInputCWD = getInput('cwd');
     try {
         const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r'], {
-            cwd: process.env.CWD || process.cwd(),
+            cwd: actionInputCWD || process.cwd(),
         });
         // Set github outputs
         setOutput('nodeStatusCode', status);
