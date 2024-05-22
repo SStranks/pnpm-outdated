@@ -19,7 +19,9 @@ if (process.env.NODE_ENV === 'development') {
 
 const main = async () => {
   try {
-    const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r'], { cwd: process.cwd() });
+    const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r'], {
+      cwd: process.env.CWD || process.cwd(),
+    });
 
     // Set github outputs
     setOutput('nodeStatusCode', status);
