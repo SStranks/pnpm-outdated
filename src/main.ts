@@ -40,7 +40,7 @@ const main = async () => {
     }
   } catch (error) {
     setFailed(
-      `Error: Action failed. StatusCode: ${(error as Error).cause}. Message: ${(error as Error).message}. InputCWD: ${actionInputCWD}`
+      `Error: Action failed. StatusCode: ${(error as Error).cause}. Message: ${(error as Error).message}. InputCWD: ${actionInputCWD}. ProcessCwd: ${process.cwd()}`
     );
   }
 };
