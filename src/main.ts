@@ -39,7 +39,9 @@ const main = async () => {
       throw new Error(errorText, { cause: status });
     }
   } catch (error) {
-    setFailed(`Error: Action failed. StatusCode: ${(error as Error).cause}. Message: ${(error as Error).message}`);
+    setFailed(
+      `Error: Action failed. StatusCode: ${(error as Error).cause}. Message: ${(error as Error).message}. InputCWD: ${actionInputCWD}`
+    );
   }
 };
 

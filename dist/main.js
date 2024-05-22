@@ -36,7 +36,7 @@ const main = async () => {
         }
     }
     catch (error) {
-        setFailed(`Error: Action failed. StatusCode: ${error.cause}. Message: ${error.message}`);
+        setFailed(`Error: Action failed. StatusCode: ${error.cause}. Message: ${error.message}. InputCWD: ${actionInputCWD}`);
     }
 };
 main();
