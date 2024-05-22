@@ -1,5 +1,17 @@
 name: 'pnpm outdated dependencies'
+author: 'Simon Stranks'
 description: 'Runs the command `pnpm outdated -r`, generates markdown, and outputs to a github-summary'
+
+outputs:
+  nodeStatusCode:
+    description: 'StatusCode of node process'
+  nodeStderr:
+    description: 'Stderr of node process'
+
 runs:
   using: 'node20'
   main: 'dist/main.js'
+
+branding:
+  icon: 'box'
+  color: 'yellow'

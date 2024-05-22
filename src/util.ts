@@ -1,6 +1,17 @@
-import { SummaryTableRow } from '@actions/core/lib/summary';
+import type { SummaryTableRow } from '@actions/core/lib/summary';
+import { summary, notice } from '@actions/core';
+import { diff } from 'semver';
 
 type TSemverVersion = 'Major' | 'Minor' | 'Patch';
+
+interface IPnpmRecursiveOutdated {
+  current: string;
+  latest: string;
+  wanted: string;
+  isDeprecated: boolean;
+  dependencyType: string;
+  dependentPackages: { name: string; location: string }[];
+}
 
 const EMPTYROW_15PX = '<tr style="height: 15px"></tr>';
 const EMPTYROW_5PX = '<tr style="height: 5px"></tr>';
@@ -33,4 +44,50 @@ export const markdownTableFormatter = (
   const tablePatch = semverHTMLTable(patch, 'Patch');
 
   return `<table>${tableTitle}${EMPTYROW_15PX}${tableMajor}${tableMinor}${tablePatch}</table>`;
+};
+
+export const summaryNoOutdated = () => {
+  summary.addHeading('All dependencies are current');
+  summary.write();
+};
+
+export const summaryOutdated = (input: string) => {
+  let majorTableRows: SummaryTableRow[] = [];
+  let minorTableRows: SummaryTableRow[] = [];
+  let patchTableRows: SummaryTableRow[] = [];
+
+  const json = JSON.parse(input);
+
+  // Parse PNPM json;
+  const jsonEntries: [string, IPnpmRecursiveOutdated][] = Object.entries(json);
+  jsonEntries.forEach(([name, data]) => {
+    const semverDiff = diff(data.current, data.latest);
+
+    let deprecated;
+    if (data['isDeprecated']) deprecated = 'Deprecated';
+    const dependentPackages = data['dependentPackages']
+      .map(({ name }) => name)
+      .join('<br>')
+      .trim();
+
+    // Output table row cells per package
+    const tableRow = [name, data.current, deprecated ?? data.latest, dependentPackages];
+
+    if (semverDiff === 'major' || semverDiff === 'premajor') majorTableRows.push(tableRow);
+    if (semverDiff === 'minor' || semverDiff === 'preminor') minorTableRows.push(tableRow);
+    if (semverDiff === 'patch' || semverDiff === 'prepatch') patchTableRows.push(tableRow);
+  });
+
+  // From sorted by semver level, to markdown table
+  const tableMarkdown = markdownTableFormatter(majorTableRows, minorTableRows, patchTableRows);
+
+  // Export to github summary
+  summary.addRaw(tableMarkdown);
+  summary.write();
+
+  // Log a notice of package totals
+  const majorTotal = `Major: ${majorTableRows.length}.`;
+  const minorTotal = `Minor: ${minorTableRows.length}.`;
+  const patchTotal = `Patch: ${patchTableRows.length}.`;
+  notice(`Outdated Packages: ${majorTotal} ${minorTotal} ${patchTotal}`);
 };
