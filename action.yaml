@@ -5,7 +5,7 @@ description: 'Runs the command `pnpm outdated -r`, generates markdown, and outpu
 inputs:
   cwd:
     required: true
-    description: 'Working directory'
+    description: 'Path to the folder where action command should be run'
 
 outputs:
   nodeStatusCode:
