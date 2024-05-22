@@ -13,9 +13,6 @@ outputs:
   nodeStderr:
     description: 'Stderr of node process'
 
-env:
-  CWD: ${{ inputs.cwd }}
-
 runs:
   using: 'node20'
   main: 'dist/main.js'
