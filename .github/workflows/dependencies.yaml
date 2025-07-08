@@ -1,0 +1,56 @@
+---
+name: Dependencies
+# Checks the entire repository for outdated packages (latest) and prints output to .txt
+
+on: # yamllint disable-line rule:truthy
+  schedule:
+    # minute (0-59) - hour (0-23) - date (1-31) - month (1-12 or JAN-DEC) - day (0-6 or SUN-SAT)
+    - cron: '0 17 * * SUN'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Dependencies
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      # Checkout project code to runner workspace sub-directory
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: package.json
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_ENV"
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies and build
+        run: |
+          pnpm install
+          pnpm run build
+
+      - name: Run action; pnpm-outdated
+        uses: .
+        with:
+          cwd: ${{ github.workspace }}

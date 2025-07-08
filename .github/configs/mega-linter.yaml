@@ -1,0 +1,29 @@
+# Configuration file for MegaLinter
+# See all available variables at https://megalinter.io/configuration/ and in linters documentation
+---
+# APPLY_FIXES: all
+ENABLE:
+  - TYPESCRIPT
+  - HTML
+  - JSON
+  - MARKDOWN
+  - YAML
+  - ACTION
+  - REPOSITORY
+DISABLE_LINTERS:
+  - JSON_JSONLINT
+  - JSON_ESLINT_PLUGIN_JSONC
+  - REPOSITORY_CHECKOV
+  - REPOSITORY_GRYPE
+  - REPOSITORY_TRIVY
+  - REPOSITORY_KICS
+  - REPOSITORY_DEVSKIM
+PRINT_ALL_FILES: false
+FILTER_REGEX_EXCLUDE: '(pnpm-lock.yaml|node_modules/|megalinter-reports/)'
+JSON_PRETTIER_CONFIG_FILE: './packages/prettier-config/prettier.config.js'
+SHOW_ELAPSED_TIME: true
+FLAVOR_SUGGESTIONS: false
+EMAIL_REPORTER: false
+FILEIO_REPORTER: false
+JSON_REPORTER: true
+GITHUB_STATUS_REPORTER: false
