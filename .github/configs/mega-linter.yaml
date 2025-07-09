@@ -26,6 +26,8 @@ DISABLE_LINTERS:
 PRE_COMMANDS:
   - command: export ESLINT_FLAT_CONFIG="true"
     output_variables: ['ESLINT_FLAT_CONFIG']
+TYPESCRIPT_ES_COMMAND_REMOVE_ARGUMENTS: >-
+  --no-eslintrc -c
 PRINT_ALL_FILES: false
 FILTER_REGEX_EXCLUDE: '(pnpm-lock.yaml|node_modules/|megalinter-reports/)'
 JSON_PRETTIER_CONFIG_FILE: './packages/prettier-config/prettier.config.js'
