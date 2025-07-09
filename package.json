@@ -26,7 +26,8 @@
     "start": "node dist/main.js",
     "start:dev": "NODE_ENV=development node dist/main.js",
     "build": "tsc ",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "eslint"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",

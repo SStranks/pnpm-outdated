@@ -3,6 +3,7 @@
 ---
 # APPLY_FIXES: all
 ENABLE:
+  - TYPESCRIPT
   - HTML
   - JSON
   - MARKDOWN
