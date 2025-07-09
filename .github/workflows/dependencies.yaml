@@ -51,6 +51,6 @@ jobs:
           pnpm run build
 
       - name: Run action; pnpm-outdated
-        uses: .
+        uses: ./
         with:
           cwd: ${{ github.workspace }}
