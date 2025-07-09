@@ -47,7 +47,7 @@ jobs:
         run: pnpm install
 
       - name: ESLint Check
-        run: pnpm --filter "@apps/*" eslint:lint
+        run: pnpm lint
 
       # // NOTE:  Megalinter; various linters don't support eslint.config.js yet.
       - name: MegaLinter
