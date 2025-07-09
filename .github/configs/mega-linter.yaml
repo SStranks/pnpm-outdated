@@ -24,13 +24,12 @@ DISABLE_LINTERS:
   - REPOSITORY_KICS
   - REPOSITORY_DEVSKIM
 PRE_COMMANDS:
-   - command: export ESLINT_FLAT_CONFIG="true"
-     output_variables: ["ESLINT_FLAT_CONFIG"]
+  - command: export ESLINT_FLAT_CONFIG="true"
+    output_variables: ['ESLINT_FLAT_CONFIG']
 PRINT_ALL_FILES: false
 FILTER_REGEX_EXCLUDE: '(pnpm-lock.yaml|node_modules/|megalinter-reports/)'
 JSON_PRETTIER_CONFIG_FILE: './packages/prettier-config/prettier.config.js'
 TYPESCRIPT_ES_CONFIG_FILE: './eslint.config.js'
-ESLINT_USE_FLAT_CONFIGdsfgdfgdfg
 SHOW_ELAPSED_TIME: true
 FLAVOR_SUGGESTIONS: false
 EMAIL_REPORTER: false
