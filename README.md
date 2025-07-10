@@ -6,8 +6,8 @@
 ![Last Commit](https://img.shields.io/github/last-commit/SStranks/pnpm-outdated)
 
 [![CodeQL](https://github.com/SStranks/pnpm-outdated/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/SStranks/pnpm-outdated/actions/workflows/github-code-scanning/codeql)
-![Lint](https://github.com/SStranks/pnpm-outdated/actions/workflows/lint.yaml/badge.svg)
-![Dependencies](https://github.com/SStranks/pnpm-outdated/actions/workflows/dependencies.yaml/badge.svg)
+[![Lint](https://github.com/SStranks/pnpm-outdated/actions/workflows/lint.yaml/badge.svg)](https://github.com/SStranks/pnpm-outdated/actions/workflows/lint.yaml)
+[![Dependencies](https://github.com/SStranks/pnpm-outdated/actions/workflows/dependencies.yaml/badge.svg)](https://github.com/SStranks/pnpm-outdated/actions/workflows/dependencies.yaml)
 
 **A GitHub Action that runs `pnpm outdated` and generates a clean, summarized table of outdated dependencies directly in the GitHub Actions UI.**
 
