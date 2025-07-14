@@ -11,4 +11,5 @@ fi
 docker run --rm \
   -v "$(pwd)":/tmp/lint \
   -e MEGALINTER_FILES_TO_LINT="$STAGED_FILES" \
+  -e MEGALINTER_CONFIG=.mega-linter.local.yaml \
   oxsecurity/megalinter:v8
