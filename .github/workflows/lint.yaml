@@ -46,10 +46,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: ESLint Check
-        run: pnpm lint
-
-      # // NOTE:  Megalinter; various linters don't support eslint.config.js yet.
       - name: MegaLinter
         uses: oxsecurity/megalinter/flavors/javascript@v8
         env:
