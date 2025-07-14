@@ -46,6 +46,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@packages/commitlint-config": "workspace:*",
+    "@packages/eslint-config": "workspace:*",
     "@packages/prettier-config": "workspace:*",
     "semver": "^7.7.2"
   },
