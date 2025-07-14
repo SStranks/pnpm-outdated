@@ -25,8 +25,7 @@ FILTER_REGEX_EXCLUDE: '(pnpm-lock.yaml|pnpm-workspace.yaml)'
 
 JSON_PRETTIER_CONFIG_FILE: 'packages/prettier-config/prettier.config.js'
 TYPESCRIPT_DEFAULT_STYLE: 'prettier'
-TYPESCRIPT_ES_CLI_EXECUTABLE: ['this is a test fake command']
-# TYPESCRIPT_ES_CLI_EXECUTABLE: ['node_modules/.bin/eslint']
+TYPESCRIPT_ES_CLI_EXECUTABLE: ['node_modules/.bin/eslint']
 TYPESCRIPT_ES_COMMAND_REMOVE_ARGUMENTS:
   - --no-eslintrc
   - -c
