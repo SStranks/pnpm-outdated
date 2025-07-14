@@ -1,9 +1,10 @@
+# Folders
+**/node_modules
+/megalinter-reports
+
 # Env files
 **/.env
 **/.env.*
-
-# Dependencies
-**/node_modules
 
 # Public
 **/public

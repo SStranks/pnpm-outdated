@@ -1,4 +1,14 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+# shellcheck disable=SC2148
+echo "Running MegaLinter on staged files..."
 
-pnpm lint-staged --quiet
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | tr '\n' ',' | sed 's/,$//')
+
+if [ -z "$STAGED_FILES" ]; then
+  echo "No staged files to lint."
+  exit 0
+fi
+
+docker run --rm \
+  -v "$(pwd)":/tmp/lint \
+  -e MEGALINTER_FILES_TO_LINT="$STAGED_FILES" \
+  oxsecurity/megalinter:v8

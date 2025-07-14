@@ -16,9 +16,22 @@
   ],
   "license": "ISC",
   "type": "module",
-  "packageManager": "pnpm@9.0.6",
+  "packageManager": "pnpm@10.12.1",
   "engines": {
-    "node": ">= 20"
+    "node": ">=20.18.0",
+    "pnpm": ">=10"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error",
+      "version": ">=20.18.0"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error",
+      "version": ">=10"
+    }
   },
   "prettier": "@packages/prettier-config",
   "main": "dist/main.js",
@@ -27,7 +40,8 @@
     "start:dev": "NODE_ENV=development node dist/main.js",
     "build": "tsc ",
     "prepare": "husky",
-    "lint": "eslint"
+    "lint": "eslint",
+    "megalint": "docker run --rm -v \"$(pwd)\":/tmp/lint oxsecurity/megalinter:v8"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",
@@ -41,7 +55,6 @@
     "@types/semver": "^7.7.0",
     "eslint": "9.30.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "typescript": "^5.8.3"
   }
