@@ -4,7 +4,7 @@ import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 
-import { summaryNoOutdated, summaryOutdated } from './util';
+import { summaryNoOutdated, summaryOutdated } from './util.js';
 
 // For testing purposes; exports summary markdown to output.md file
 if (process.env.NODE_ENV === 'development') {

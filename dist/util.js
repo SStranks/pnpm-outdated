@@ -2,7 +2,10 @@ import { summary, notice } from '@actions/core';
 import { diff } from 'semver';
 const EMPTYROW_15PX = '<tr style="height: 15px"></tr>';
 const EMPTYROW_5PX = '<tr style="height: 5px"></tr>';
-const TABLE_HEADERS = '<th style="text-align: left">Package</th><th style="text-align: left">Current</th><th style="text-align: left">Latest</th><th style="text-align: left">Dependents</th>';
+const TABLE_HEADERS = `<th style="text-align: left">Package</th>
+  <th style="text-align: left">Current</th>
+  <th style="text-align: left">Latest</th>
+  <th style="text-align: left">Dependents</th>`;
 const tableHeader = (semverVersion) => `<th style="text-align: left" colspan="4">${semverVersion}</th>`;
 const semverHTMLTable = (data, tableVersion) => {
     if (data.length === 0)
