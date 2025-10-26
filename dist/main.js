@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 const main = async () => {
     const actionInputCWD = getInput('cwd');
     try {
-        const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r'], {
+        const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r', '--no-color', '--silent'], {
             cwd: actionInputCWD || process.cwd(),
         });
         console.log(`STDERR: ${stderr}

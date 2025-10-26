@@ -21,9 +21,13 @@ const main = async () => {
   const actionInputCWD = getInput('cwd');
 
   try {
-    const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r'], {
-      cwd: actionInputCWD || process.cwd(),
-    });
+    const { stderr, stdout, status } = spawnSync(
+      'pnpm',
+      ['outdated', '--format=json', '-r', '--no-color', '--silent'],
+      {
+        cwd: actionInputCWD || process.cwd(),
+      }
+    );
 
     console.log(`STDERR: ${stderr}
       STDOUT: ${stdout}
