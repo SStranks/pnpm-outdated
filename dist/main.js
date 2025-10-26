@@ -20,6 +20,9 @@ const main = async () => {
         const { stderr, stdout, status } = spawnSync('pnpm', ['outdated', '--format=json', '-r'], {
             cwd: actionInputCWD || process.cwd(),
         });
+        console.log(`STDERR: ${stderr}
+      STDOUT: ${stdout}
+      STATUS: ${status}`);
         // Set github outputs
         setOutput('nodeStatusCode', status);
         setOutput('nodeStderr', stderr);

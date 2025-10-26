@@ -25,6 +25,10 @@ const main = async () => {
       cwd: actionInputCWD || process.cwd(),
     });
 
+    console.log(`STDERR: ${stderr}
+      STDOUT: ${stdout}
+      STATUS: ${status}`);
+
     // Set github outputs
     setOutput('nodeStatusCode', status);
     setOutput('nodeStderr', stderr);
