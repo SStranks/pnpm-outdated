@@ -4,12 +4,12 @@ import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 
-import { summaryNoOutdated, summaryOutdated } from './util.js';
+import { summaryNoOutdated, summaryOutdated } from './util';
 
 // For testing purposes; exports summary markdown to output.md file
 if (process.env.NODE_ENV === 'development') {
-  const CUR = path.dirname(url.fileURLToPath(import.meta.url));
-  const SUMMARY_FILE = path.join(CUR, 'output.md');
+  const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+  const SUMMARY_FILE = path.join(__dirname, 'private.output.md');
   if (existsSync(SUMMARY_FILE)) {
     unlinkSync(SUMMARY_FILE);
   }
@@ -39,8 +39,12 @@ const main = async () => {
       throw new Error(errorText, { cause: status });
     }
   } catch (error) {
+    const { message, cause } = error as Error;
     setFailed(
-      `Error: Action failed. StatusCode: ${(error as Error).cause}. Message: ${(error as Error).message}. InputCWD: ${actionInputCWD}. ProcessCwd: ${process.cwd()}`
+      `Error: Action failed. StatusCode: ${cause}.
+      Message: ${message}.
+      InputCWD: ${actionInputCWD}.
+      ProcessCwd: ${process.cwd()}`
     );
   }
 };

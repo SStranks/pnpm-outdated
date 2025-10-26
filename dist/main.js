@@ -3,11 +3,11 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
-import { summaryNoOutdated, summaryOutdated } from './util.js';
+import { summaryNoOutdated, summaryOutdated } from './util';
 // For testing purposes; exports summary markdown to output.md file
 if (process.env.NODE_ENV === 'development') {
-    const CUR = path.dirname(url.fileURLToPath(import.meta.url));
-    const SUMMARY_FILE = path.join(CUR, 'output.md');
+    const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+    const SUMMARY_FILE = path.join(__dirname, 'private.output.md');
     if (existsSync(SUMMARY_FILE)) {
         unlinkSync(SUMMARY_FILE);
     }
@@ -36,7 +36,11 @@ const main = async () => {
         }
     }
     catch (error) {
-        setFailed(`Error: Action failed. StatusCode: ${error.cause}. Message: ${error.message}. InputCWD: ${actionInputCWD}. ProcessCwd: ${process.cwd()}`);
+        const { message, cause } = error;
+        setFailed(`Error: Action failed. StatusCode: ${cause}.
+      Message: ${message}.
+      InputCWD: ${actionInputCWD}.
+      ProcessCwd: ${process.cwd()}`);
     }
 };
 main();
