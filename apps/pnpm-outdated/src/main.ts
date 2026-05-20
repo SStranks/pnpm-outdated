@@ -29,6 +29,7 @@ const main = () => {
         cwd: actionInputCWD || process.cwd(),
         encoding: 'utf8',
         maxBuffer: 10 * 1024 * 1024,
+        shell: true,
       }
     );
 
