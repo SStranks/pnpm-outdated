@@ -1,10 +1,17 @@
-import type { SummaryTableRow } from '@actions/core/lib/summary.js';
-import { summary, notice } from '@actions/core';
+import * as core from '@actions/core';
 import { diff } from 'semver';
 
-type TSemverVersion = 'Major' | 'Minor' | 'Patch';
+type SemverVersion = 'Major' | 'Minor' | 'Patch';
 
-interface IPnpmRecursiveOutdated {
+type SummaryTableRow = (SummaryTableCell | string)[];
+interface SummaryTableCell {
+  data: string;
+  header?: boolean;
+  colspan?: string;
+  rowspan?: string;
+}
+
+interface PnpmRecursiveOutdated {
   current: string;
   latest: string;
   wanted: string;
@@ -19,14 +26,28 @@ const TABLE_HEADERS = `<th style="text-align: left">Package</th>
   <th style="text-align: left">Current</th>
   <th style="text-align: left">Latest</th>
   <th style="text-align: left">Dependents</th>`;
-const tableHeader = (semverVersion: TSemverVersion) => `<th style="text-align: left" colspan="4">${semverVersion}</th>`;
+const tableHeader = (semverVersion: SemverVersion) => `<th style="text-align: left" colspan="4">${semverVersion}</th>`;
 
-const semverHTMLTable = (data: SummaryTableRow[] | [], tableVersion: TSemverVersion) => {
+const semverHTMLTable = (data: SummaryTableRow[] | [], tableVersion: SemverVersion) => {
   if (data.length === 0) return '';
 
   const tableData = data
     .map((row: SummaryTableRow) => {
-      const cells = row.map((cell) => `<td>${cell}</td>`).join('');
+      const cells = row
+        .map((cell) => {
+          if (typeof cell === 'string') {
+            return `<td>${cell}</td>`;
+          }
+
+          const tag = cell.header ? 'th' : 'td';
+
+          const colspan = cell.colspan ? ` colspan="${cell.colspan}"` : '';
+          const rowspan = cell.rowspan ? ` rowspan="${cell.rowspan}"` : '';
+
+          return `<${tag}${colspan}${rowspan}>${cell.data}</${tag}>`;
+        })
+        .join('');
+
       return `<tr>${cells}</tr>`;
     })
     .join('');
@@ -49,19 +70,19 @@ export const markdownTableFormatter = (
 };
 
 export const summaryNoOutdated = () => {
-  summary.addHeading('All dependencies are current');
-  summary.write();
+  core.summary.addHeading('All dependencies are current');
+  void core.summary.write();
 };
 
 export const summaryOutdated = (input: string) => {
-  let majorTableRows: SummaryTableRow[] = [];
-  let minorTableRows: SummaryTableRow[] = [];
-  let patchTableRows: SummaryTableRow[] = [];
+  const majorTableRows: SummaryTableRow[] = [];
+  const minorTableRows: SummaryTableRow[] = [];
+  const patchTableRows: SummaryTableRow[] = [];
 
-  const json = JSON.parse(input);
+  const json = JSON.parse(input) as Record<string, PnpmRecursiveOutdated>;
 
   // Parse PNPM json;
-  const jsonEntries: [string, IPnpmRecursiveOutdated][] = Object.entries(json);
+  const jsonEntries = Object.entries(json);
   jsonEntries.forEach(([name, data]) => {
     const semverDiff = diff(data.current, data.latest);
 
@@ -84,12 +105,12 @@ export const summaryOutdated = (input: string) => {
   const tableMarkdown = markdownTableFormatter(majorTableRows, minorTableRows, patchTableRows);
 
   // Export to github summary
-  summary.addRaw(tableMarkdown);
-  summary.write();
+  core.summary.addRaw(tableMarkdown);
+  void core.summary.write();
 
   // Log a notice of package totals
   const majorTotal = `Major: ${majorTableRows.length}.`;
   const minorTotal = `Minor: ${minorTableRows.length}.`;
   const patchTotal = `Patch: ${patchTableRows.length}.`;
-  notice(`Outdated Packages: ${majorTotal} ${minorTotal} ${patchTotal}`);
+  core.notice(`Outdated Packages: ${majorTotal} ${minorTotal} ${patchTotal}`);
 };

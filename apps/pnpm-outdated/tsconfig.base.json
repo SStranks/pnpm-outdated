@@ -1,0 +1,9 @@
+{
+  "extends": "@packages/typescript-config/nodejs",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "paths": {}
+  },
+  "exclude": ["node_modules", "dist"]
+}

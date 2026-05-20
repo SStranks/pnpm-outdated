@@ -1,4 +1,16 @@
 **/node_modules
+**/public
+**/build
+**/logs
 **/dist
 **/coverage
+**/mocks
+**/__snapshots__
+**/migrations/meta
+**/.sassdoc
+**/*.gen.*
+**/graphql/generated/
+**/routeTree.gen.ts
 pnpm-lock.yaml
+pnpm-lock.*.yaml
+package-lock.json

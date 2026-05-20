@@ -1,0 +1,18 @@
+{
+  "name": "@apps/pnpm-outdated",
+  "version": "1.0.0",
+  "author": "Simon Stranks <sstranks0@gmail.com> <https://github.com/SStranks>",
+  "license": "ISC",
+  "description": "Github Action. Runs `PNPM outdated` and reports results to markdown",
+  "keywords": [],
+  "type": "module",
+  "main": "main.js",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@types/semver": "^7.7.1"
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "semver": "^7.8.0"
+  }
+}

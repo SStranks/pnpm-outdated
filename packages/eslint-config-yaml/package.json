@@ -1,0 +1,15 @@
+{
+  "name": "@packages/eslint-config-yaml",
+  "version": "1.0.0",
+  "private": true,
+  "description": "yaml eslint configuration",
+  "author": "Simon Stranks <sstranks0@gmail.com> <https://github.com/SStranks>",
+  "license": "ISC",
+  "type": "module",
+  "types": "index.d.ts",
+  "main": "config.js",
+  "devDependencies": {
+    "eslint-plugin-yml": "^3.3.2",
+    "yaml-eslint-parser": "^2.0.0"
+  }
+}

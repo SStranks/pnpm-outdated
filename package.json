@@ -16,8 +16,10 @@
   ],
   "license": "ISC",
   "type": "module",
+  "packageManager": "pnpm@11.1.2",
   "engines": {
-    "node": ">=20 <24"
+    "node": ">=20 <24",
+    "pnpm": ">=11"
   },
   "devEngines": {
     "runtime": {
@@ -29,28 +31,34 @@
   "prettier": "@packages/prettier-config",
   "main": "dist/main.js",
   "scripts": {
+    "commitlint": "commitlint",
     "start": "node dist/main.js",
-    "start:dev": "NODE_ENV=development node --import tsx src/main.ts",
+    "start:dev": "NODE_ENV=development node --import tsx apps/pnpm-outdated/src/main.ts",
     "build": "tsc ",
     "prepare": "husky",
     "lint": "eslint",
     "megalint": "docker run --rm -e MEGALINTER_CONFIG=.mega-linter.local.yaml -v \"$(pwd)\":/tmp/lint oxsecurity/megalinter:v8"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^3.0.1",
     "@packages/commitlint-config": "workspace:*",
-    "@packages/eslint-config": "workspace:*",
+    "@packages/eslint-config-global": "workspace:*",
+    "@packages/eslint-config-javascript": "workspace:*",
+    "@packages/eslint-config-typescript": "workspace:*",
+    "@packages/eslint-config-yaml": "workspace:*",
     "@packages/prettier-config": "workspace:*",
-    "semver": "^7.7.2"
+    "@packages/typescript-config": "workspace:*",
+    "semver": "^7.8.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@types/node": "^24.0.11",
-    "@types/semver": "^7.7.0",
-    "eslint": "9.30.1",
+    "@commitlint/cli": "^21.0.1",
+    "@types/node": "^25.9.1",
+    "@types/semver": "^7.7.1",
+    "eslint": "^9.39.4",
     "husky": "^9.1.7",
-    "prettier": "^3.6.2",
-    "tsx": "^4.20.6",
-    "typescript": "^5.8.3"
+    "lint-staged": "^17.0.4",
+    "prettier": "^3.8.3",
+    "tsx": "^4.22.0",
+    "typescript": "^6.0.3"
   }
 }

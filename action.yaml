@@ -1,22 +1,24 @@
-name: 'pnpm outdated dependencies'
-author: 'Simon Stranks'
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+---
+name: pnpm outdated dependencies
+author: Simon Stranks
 description: 'Runs the command `pnpm outdated -r`, generates markdown, and outputs to a github-summary'
 
 inputs:
   cwd:
     required: true
-    description: 'Path to the folder where action command should be run'
+    description: Path to the folder where action command should be run
 
 outputs:
   nodeStatusCode:
-    description: 'StatusCode of node process'
+    description: StatusCode of node process
   nodeStderr:
-    description: 'Stderr of node process'
+    description: Stderr of node process
 
 runs:
-  using: 'node20'
-  main: 'dist/main.js'
+  using: node20
+  main: dist/main.js
 
 branding:
-  icon: 'box'
-  color: 'yellow'
+  icon: box
+  color: yellow

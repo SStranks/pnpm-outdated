@@ -1,0 +1,17 @@
+{
+  "name": "@packages/eslint-config-global",
+  "version": "1.0.0",
+  "private": true,
+  "description": "shared eslint configuration",
+  "author": "Simon Stranks <sstranks0@gmail.com> <https://github.com/SStranks>",
+  "license": "ISC",
+  "type": "module",
+  "main": "config.js",
+  "devDependencies": {
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-github": "6.0.0",
+    "eslint-plugin-perfectionist": "^5.9.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-unicorn": "^64.0.0"
+  }
+}

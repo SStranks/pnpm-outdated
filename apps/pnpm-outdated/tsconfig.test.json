@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["src/tests/*", "src/**/*.test.*", "src/**/*.spec.*", "src/routeTree.gen.ts", "global.d.ts"],
+  "exclude": ["node_modules", "src/**/private*"],
+  "references": [{ "path": "./tsconfig.src.json" }],
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
+  }
+}

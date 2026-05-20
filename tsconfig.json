@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    // Configuration based on Node22 base: https://github.com/tsconfig/bases/blob/main/bases/node22.json
+    "lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
     "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "es2022",
+
     "strict": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16",
+    "strictNullChecks": true
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "include": ["*.ts", "packages"],
+  "exclude": ["node_modules", "apps/pnpm-outdated/src", "logs"]
 }

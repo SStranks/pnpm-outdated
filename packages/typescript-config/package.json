@@ -1,0 +1,13 @@
+{
+  "name": "@packages/typescript-config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "shared typescript configuration",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Simon Stranks <sstranks0@gmail.com> <https://github.com/SStranks>",
+  "license": "ISC",
+  "types": "index.d.ts",
+  "main": "config.js"
+}

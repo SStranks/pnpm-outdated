@@ -1,4 +1,5 @@
 import { getInput, setFailed, setOutput } from '@actions/core';
+
 import { spawnSync } from 'node:child_process';
 import { existsSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -7,21 +8,21 @@ import url from 'node:url';
 import { summaryNoOutdated, summaryOutdated } from './util.js';
 
 // For testing purposes; exports summary markdown to output.md file
-if (process.env.NODE_ENV === 'development') {
+if (process.env['NODE_ENV'] === 'development') {
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
   const SUMMARY_FILE = path.join(__dirname, 'private.output.md');
   if (existsSync(SUMMARY_FILE)) {
     unlinkSync(SUMMARY_FILE);
   }
   writeFileSync(SUMMARY_FILE, '', 'utf8');
-  process.env.GITHUB_STEP_SUMMARY = SUMMARY_FILE;
+  process.env['GITHUB_STEP_SUMMARY'] = SUMMARY_FILE;
 }
 
-const main = async () => {
+const main = () => {
   const actionInputCWD = getInput('cwd');
 
   try {
-    const { stderr, stdout, status } = spawnSync(
+    const { status, stderr, stdout } = spawnSync(
       'pnpm',
       ['outdated', '--format=json', '-r', '--no-color', '--silent'],
       {
@@ -29,9 +30,9 @@ const main = async () => {
       }
     );
 
-    console.log(`STDERR: ${stderr}
-      STDOUT: ${stdout}
-      STATUS: ${status}`);
+    console.log(`STDERR: ${stderr.toString('utf8')}
+      STDOUT: ${stdout.toString('utf8')}
+      STATUS: ${status?.toString()}`);
 
     // Set github outputs
     setOutput('nodeStatusCode', status);
@@ -47,9 +48,9 @@ const main = async () => {
       throw new Error(errorText, { cause: status });
     }
   } catch (error) {
-    const { message, cause } = error as Error;
+    const { cause, message } = error as Error;
     setFailed(
-      `Error: Action failed. StatusCode: ${cause}.
+      `Error: Action failed. StatusCode: ${cause as string}.
       Message: ${message}.
       InputCWD: ${actionInputCWD}.
       ProcessCwd: ${process.cwd()}`
