@@ -6,7 +6,9 @@
   "description": "Github Action. Runs `PNPM outdated` and reports results to markdown",
   "keywords": [],
   "type": "module",
-  "main": "main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.src.json"
+  },
   "devDependencies": {
     "@types/node": "^25.9.1",
     "@types/semver": "^7.7.1"

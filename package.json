@@ -29,12 +29,12 @@
     }
   },
   "prettier": "@packages/prettier-config",
-  "main": "dist/main.js",
+  "main": "apps/pnpm-outdated/dist/main.js",
   "scripts": {
     "commitlint": "commitlint",
     "start": "node dist/main.js",
     "start:dev": "NODE_ENV=development node --import tsx apps/pnpm-outdated/src/main.ts",
-    "build": "tsc ",
+    "build": "pnpm --filter @apps/pnpm-outdated build",
     "prepare": "husky",
     "lint": "eslint",
     "megalint": "docker run --rm -e MEGALINTER_CONFIG=.mega-linter.local.yaml -v \"$(pwd)\":/tmp/lint oxsecurity/megalinter:v8"

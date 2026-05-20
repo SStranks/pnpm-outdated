@@ -16,8 +16,8 @@ outputs:
     description: Stderr of node process
 
 runs:
-  using: node20
-  main: dist/main.js
+  using: node24
+  main: apps/pnpm-outdated/dist/main.js
 
 branding:
   icon: box
