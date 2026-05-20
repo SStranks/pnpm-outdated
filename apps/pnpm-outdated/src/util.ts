@@ -12,9 +12,9 @@ interface SummaryTableCell {
 }
 
 interface PnpmRecursiveOutdated {
-  current: string;
-  latest: string;
-  wanted: string;
+  current?: string;
+  latest?: string;
+  wanted?: string;
   isDeprecated: boolean;
   dependencyType: string;
   dependentPackages: { name: string; location: string }[];
@@ -83,18 +83,27 @@ export const summaryOutdated = (input: string) => {
 
   // Parse PNPM json;
   const jsonEntries = Object.entries(json);
-  jsonEntries.forEach(([name, data]) => {
+  jsonEntries.forEach(([packageName, data]) => {
+    if (!data.current || !data.latest) {
+      core.warning(`Skipping package "${packageName}"; current/latest version missing`);
+      return;
+    }
+
     const semverDiff = diff(data.current, data.latest);
 
-    let deprecated;
-    if (data['isDeprecated']) deprecated = 'Deprecated';
+    if (!semverDiff) {
+      core.warning(`Unable to determine semver diff for package "${packageName}"`);
+      return;
+    }
+
+    const deprecated = data.isDeprecated ? 'Deprecated' : undefined;
     const dependentPackages = data['dependentPackages']
       .map(({ name }) => name)
       .join('<br>')
       .trim();
 
     // Output table row cells per package
-    const tableRow = [name, data.current, deprecated ?? data.latest, dependentPackages];
+    const tableRow = [packageName, data.current, deprecated ?? data.latest, dependentPackages];
 
     if (semverDiff === 'major' || semverDiff === 'premajor') majorTableRows.push(tableRow);
     if (semverDiff === 'minor' || semverDiff === 'preminor') minorTableRows.push(tableRow);

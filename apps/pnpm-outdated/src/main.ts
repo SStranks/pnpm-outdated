@@ -27,11 +27,13 @@ const main = () => {
       ['outdated', '--format=json', '-r', '--no-color', '--silent'],
       {
         cwd: actionInputCWD || process.cwd(),
+        encoding: 'utf8',
+        maxBuffer: 10 * 1024 * 1024,
       }
     );
 
-    console.log(`STDERR: ${stderr.toString('utf8')}
-      STDOUT: ${stdout.toString('utf8')}
+    console.log(`STDERR: ${stderr}
+      STDOUT: ${stdout}
       STATUS: ${status?.toString()}`);
 
     // Set github outputs
@@ -40,12 +42,12 @@ const main = () => {
 
     // Process completed; packages are all up-to-date
     if (status === 0) return summaryNoOutdated();
+
     // Process terminated by PNPM; outdated packages
-    if (status === 1) {
-      return summaryOutdated(stdout.toString('utf8'));
+    if (stdout) {
+      return summaryOutdated(stdout);
     } else {
-      const errorText = stderr.toString();
-      throw new Error(errorText, { cause: status });
+      throw new Error(stderr || `pnpm exited with code ${status}`, { cause: status });
     }
   } catch (error) {
     const { cause, message } = error as Error;
